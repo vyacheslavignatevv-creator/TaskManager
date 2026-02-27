@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="src\entities\ClassTask.cpp" />
     <ClCompile Include="src\entities\ClassUser.cpp" />
+    <ClCompile Include="src\interface\Application.cpp" />
+    <ClCompile Include="src\interface\Application.hpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\servises\TaskManager.cpp" />
   </ItemGroup>
@@ -116,7 +118,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src\servises;D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src\entities;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src\interface;D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src\servises;D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src\entities;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
@@ -133,7 +135,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src\servises;D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src\entities;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src\interface;D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src\servises;D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src\entities;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>D:\Projects\My_Study\C++\SolutionTaskManager\TaskManager\src;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>

@@ -5,6 +5,8 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\entities\ClassUser.cpp" />
     <ClCompile Include="src\servises\TaskManager.cpp" />
+    <ClCompile Include="src\interface\Application.cpp" />
+    <ClCompile Include="src\interface\Application.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\ClassTask.hpp" />
