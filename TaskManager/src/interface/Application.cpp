@@ -1,6 +1,7 @@
+//Application.cpp
 #include <iostream>
-#include <limits>
 #include "Application.hpp"
+#include "InputUtils.hpp"
 
 Application::Application() : current_user(nullptr) {}
 
@@ -22,9 +23,9 @@ void Application::show_main_menu() {
 	std::cout << "3. Выход\n";
 	std::cout << "Выберите действие: ";
 	
-	int choice;
-	std::cin >> choice;
+	int choice = get_valid_integer_in_range("Выберите действие: ", 1, 3);
 	handle_main_menu_choice(choice);
+
 }
 
 void Application::handle_main_menu_choice(int choice) {
@@ -40,20 +41,12 @@ void Application::handle_main_menu_choice(int choice) {
 	case 3:
 		std::cout << "До свидания.\n";
 		exit(0);
-
-	default:
-		std::cout << "Неверный выбор. Попробуйте снова.\n";
-		break;
 	}
 }
 
 void Application::create_user() {
 	static int next_id = 1;
-	std::string name;
-
-	std::cout << "Введите имя пользователя: ";
-	std::cin.ignore();
-	std::getline(std::cin, name);
+	std::string name = get_non_empty_string("Введите имя пользователя: ");
 
 	users.emplace_back(next_id++, name);
 	std::cout << "Пользователь " << name << " создан.\n";
@@ -70,9 +63,7 @@ void Application::select_user() {
 		std::cout << user.get_id() << ". " <<user.get_name() << "\n";
 	}
 
-	std::cout << "Выберите ID пользователя: ";
-	int id;
-	std::cin >> id;
+	int id = get_valid_integer("Введите ID пользователя: ");
 
 	for (auto& user : users) {
 		if (user.get_id() == id) {
@@ -96,8 +87,7 @@ void Application::show_user_menu() {
 	std::cout << "6. Завершить программу\n";
 	std::cout << "Выберите действие: ";
 
-	int choice;
-	std::cin >> choice;
+	int choice = get_valid_integer_in_range("Выберите действие: ", 1, 6);
 	handle_user_menu_choice(choice);
 }
 
@@ -122,26 +112,24 @@ void Application::handle_user_menu_choice(int choice) {
 	case 6:
 		std::cout << "До свидания.\n";
 		exit(0);
-	default:
-		std::cout << "Неверный выбор. Попробуйте снова.\n";
 	}
 }
 
 
 void Application::add_task_for_user() {
 	static int next_task_id = 1;
-	std::string title, description;
-	int priority_choice;
+	
+	std::string title = get_non_empty_string("Введите назвние задачи: ");
+	std::string description = get_non_empty_string("Введите описание задачи: ");
+	
 
-	std::cout << "Введите название задачи: ";
-	std::cin.ignore();
-	std::getline(std::cin, title);
 
-	std::cout << "Введите описание задачи: ";
-	std::getline(std::cin, description);
+	std::cout << "Выберите приоритет задачи: \n";
+	std::cout << "1. - НИЗКИЙ\n";
+	std::cout << "2. - СРЕДНИЙ\n";
+	std::cout << "3. - ВЫСОКИЙ\n";
 
-	std::cout << "Выберите приоритет задачи (1 - НИЗКИЙ, 2 - СРЕДНИЙ, 3 - ВЫСОКИЙ): ";
-	std::cin >> priority_choice;
+	int priority_choice = get_valid_integer_in_range("Ваш выбор: ", 1, 3);
 
 	Priority priority = Priority::MEDIUM;
 	switch (priority_choice) {
@@ -157,16 +145,50 @@ void Application::add_task_for_user() {
 
 
 void Application::show_user_tasks(){
-	std::cout << "\n Задачи пользователя: " << current_user->get_name() << ":\n";
+	std::cout << "\nЗадачи пользователя " << current_user->get_name() << ":\n";
 	current_user->show_all_tasks();
 }
 
 void Application::mark_task_complete() {
+	auto& task_manager = current_user->get_task_manager();
+	auto tasks = task_manager.get_all_tasks();
+
+	if(tasks.empty()){
+		std::cout << "У пользователя нет задач.\n";
+		return;
+	}
+
+	std::cout << "\nСписок задач:\n";
+	for (size_t i = 0; i < tasks.size(); ++i) {
+		std::cout << i + 1 << ". ";
+		tasks[i].display();
+	}
+
+	int index = get_valid_integer_in_range("Введите номер выполненной задачи: ", 1, tasks.size());
 	//Функция в разработке
 	std::cout << "Функция в разработке.\n";
 }
 
 void Application::delete_task() {
-	//Функция в разработке
-	std::cout << "Функция в разработке.\n";
+	auto& task_manager = current_user->get_task_manager();
+	auto tasks = task_manager.get_all_tasks();
+
+	if(tasks.empty()){
+		std::cout << "У пользователя нет задач.\n";
+		return;
+	}
+
+	std::cout << "\nСписок задач:\n";
+	for (size_t i = 0; i < tasks.size(); ++i) {
+		std::cout << i + 1 << ". ";
+		tasks[i].display();
+	}
+
+	int index = get_valid_integer_in_range("Введите номер удаляемой задачи: ", 1, tasks.size());
+
+	if (get_yes_no("Вы уверены, что хотите удалить задачу?")) {
+		task_manager.delete_task(index - 1); //Переводим в 0-индексацию
+		std::cout << "Задача удалена.\n";
+	}
+	else { "Удаление отменено.\n"; }
 }

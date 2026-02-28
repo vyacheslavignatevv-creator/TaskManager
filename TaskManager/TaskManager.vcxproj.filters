@@ -12,5 +12,6 @@
     <ClInclude Include="src\entities\ClassTask.hpp" />
     <ClInclude Include="src\entities\ClassUser.hpp" />
     <ClInclude Include="src\servises\TaskManager.hpp" />
+    <ClInclude Include="src\utils\InputUtils.hpp" />
   </ItemGroup>
 </Project>
